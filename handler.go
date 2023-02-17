@@ -26,8 +26,8 @@ func NewHandler(static embed.FS) *Handler {
 
 const DefaultIndexHTML = "index.html"
 
-// handleStatic http handler
-func (h *Handler) handleStatic(w http.ResponseWriter, r *http.Request) {
+// HandleStatic http handler
+func (h *Handler) HandleStatic(w http.ResponseWriter, r *http.Request) {
 	path := strings.TrimPrefix(r.URL.Path, "/")
 	if path == "" {
 		path = DefaultIndexHTML
