@@ -13,7 +13,7 @@ var app embed.FS
 
 func main() {
 	server := gin.Default()
-	rh := reacthandler.NewHandler(app)
+	rh := reacthandler.NewHandler(app, "")
 	server.GET("/*any", rh.GinHandler())
 	server.Run()
 }

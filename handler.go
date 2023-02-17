@@ -14,21 +14,24 @@ import (
 
 type Handler struct {
 	builtFile fs.FS
+	prefix    string
 }
 
-func NewHandler(static embed.FS) *Handler {
+// NewHandler new reactjs handler
+func NewHandler(static embed.FS, p string) *Handler {
 	f, err := fs.Sub(static, "build")
 	if err != nil {
 		panic(err)
 	}
-	return &Handler{builtFile: f}
+	return &Handler{builtFile: f, prefix: p}
 }
 
+// DefaultIndexHTML default index.html file
 const DefaultIndexHTML = "index.html"
 
 // HandleStatic http handler
 func (h *Handler) HandleStatic(w http.ResponseWriter, r *http.Request) {
-	path := strings.TrimPrefix(r.URL.Path, "/")
+	path := strings.TrimPrefix(r.URL.Path, h.prefix+"/")
 	if path == "" {
 		path = DefaultIndexHTML
 	}
